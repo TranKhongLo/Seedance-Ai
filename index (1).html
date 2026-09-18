@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DUNG NGUYEN Studio</title>
+<style>
+:root{
+ --bg:#07090e;--panel:#11151d;--panel2:#171c25;--line:#2a3340;--text:#f4f7fb;
+ --muted:#9aa6b6;--accent:#e7b95e;--ok:#72d4a0;--danger:#ef7777;--info:#7da8e8;--shadow:0 18px 60px rgba(0,0,0,.34)
+}
+*{box-sizing:border-box}body{margin:0;background:
+radial-gradient(circle at 8% 0%,rgba(231,185,94,.1),transparent 28%),
+radial-gradient(circle at 95% 8%,rgba(95,125,255,.08),transparent 25%),var(--bg);
+color:var(--text);font:15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+.wrap{max-width:1420px;margin:auto;padding:22px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:16px}
+.brand{display:flex;gap:13px;align-items:center}.logo{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;
+background:linear-gradient(135deg,#f5d58e,#a16c1c);color:#111;font-weight:900;box-shadow:0 12px 35px rgba(231,185,94,.2)}
+h1{font-size:28px;line-height:1.1;margin:0}.sub{color:var(--muted);margin-top:5px}.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:10px 13px;cursor:pointer}
+.btn:hover{border-color:#526178;transform:translateY(-1px)}.btn.primary{background:var(--accent);border-color:var(--accent);color:#111;font-weight:800}
+.btn.ok{background:#11251c;border-color:#2f6349;color:#a9f1c8}.btn.danger{background:#241313;border-color:#6c3737;color:#ffb2b2}.btn.info{background:#111d31;border-color:#34517d;color:#acd0ff}
+.hero{border:1px solid #404957;border-radius:20px;background:linear-gradient(135deg,rgba(231,185,94,.11),rgba(255,255,255,.02));
+padding:17px;box-shadow:var(--shadow);margin-bottom:16px}.hero-row{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.hero h2{margin:0 0 4px}.hero p{margin:0;color:var(--muted)}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:12px;padding:6px 9px;border:1px solid var(--line);border-radius:999px;background:#0b0f15;color:var(--muted)}
+.chip.ok{color:var(--ok);border-color:#2f6349}.chip.info{color:var(--info);border-color:#38567f}
+.dashboard{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:11px}.stat{background:#0b0f15;border:1px solid var(--line);border-radius:13px;padding:10px 12px}
+.stat b{display:block;font-size:10px;letter-spacing:.06em;color:var(--muted)}.stat span{font-weight:850;font-size:15px}
+.grid{display:grid;grid-template-columns:430px 1fr;gap:16px}.card{background:rgba(17,21,29,.95);border:1px solid var(--line);border-radius:18px;
+padding:16px;box-shadow:var(--shadow)}.card h2{font-size:16px;margin:0 0 12px}
+.section{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:17px 0 8px}.field{margin-bottom:11px}.field label{display:block;font-weight:700;margin-bottom:6px}
+input,textarea,select{width:100%;background:#0b0f15;border:1px solid var(--line);color:var(--text);border-radius:11px;padding:10px 11px;outline:none}
+textarea{min-height:78px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:#60738f;box-shadow:0 0 0 3px rgba(96,115,143,.12)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.check{display:flex;gap:8px;align-items:flex-start;padding:9px;border:1px solid var(--line);background:#0b0f15;border-radius:11px}
+.check input{width:auto;margin-top:3px}.hint{margin-top:9px;border:1px dashed #3a4758;background:#0b0f15;border-radius:11px;padding:10px;color:var(--muted);font-size:12px}
+.refbox{border:1px solid var(--line);border-radius:13px;background:#0b0f15;padding:10px}.ref-preview{display:flex;gap:10px;align-items:center}
+.ref-thumb{width:72px;height:72px;border-radius:11px;object-fit:cover;border:1px solid #3a4657;background:#10151c;display:none}
+.ref-placeholder{width:72px;height:72px;border-radius:11px;border:1px dashed #465364;display:grid;place-items:center;color:var(--muted);font-size:11px;text-align:center}
+.face-status{margin-top:7px;font-size:12px}.face-status.ok{color:var(--ok)}.face-status.warn{color:var(--warn,#e6b56a)}
+.output{min-height:700px;display:flex;flex-direction:column}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.tab{border:1px solid var(--line);background:transparent;color:var(--muted);padding:9px 11px;border-radius:10px;cursor:pointer}.tab.active{color:var(--text);background:var(--panel2);border-color:#526178}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+.counter{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--muted);background:#0b0f15}.counter.ok{color:var(--ok)}.counter.bad{color:var(--danger)}
+#output{flex:1;min-height:540px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.library{margin-top:16px}.library-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.saved-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.saved{border:1px solid var(--line);border-radius:13px;background:#0b0f15;padding:11px}
+.saved.current{border-color:#946f2d;box-shadow:inset 0 0 0 1px rgba(231,185,94,.08)}.saved h3{font-size:13px;margin:0 0 4px}
+.saved p{font-size:12px;color:var(--muted);margin:0 0 6px}.saved-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.saved-actions .btn{font-size:12px;padding:7px 9px}.badge{display:inline-block;font-size:10px;padding:3px 7px;border-radius:99px;border:1px solid #394659;color:#9fb0c6;margin-left:5px}
+.batch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.batch-item{border:1px solid var(--line);background:#0b0f15;border-radius:12px;padding:10px}
+.batch-item h3{font-size:13px;margin:0 0 5px}.batch-item p{font-size:12px;color:var(--muted);margin:0 0 7px}
+.package-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}.pkg{border:1px solid var(--line);background:#0b0f15;border-radius:12px;padding:10px}
+.pkg b{font-size:12px}.pkg small{display:block;color:var(--muted);margin-top:3px}
+.meter{height:8px;background:#202734;border-radius:99px;overflow:hidden;margin-top:6px}.meter i{display:block;height:100%;background:var(--accent);width:0}
+.toast{position:fixed;right:18px;bottom:18px;background:#1a2230;border:1px solid #3c4b5f;padding:11px 14px;border-radius:11px;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none;z-index:40}
+.toast.show{opacity:1;transform:translateY(0)}.footer{text-align:center;color:#697687;font-size:12px;padding:18px 0 4px}
+@media(max-width:1080px){.grid{grid-template-columns:1fr}.dashboard{grid-template-columns:repeat(3,1fr)}.saved-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.wrap{padding:12px}.dashboard,.two,.filters,.batch-grid,.package-grid,.saved-grid{grid-template-columns:1fr}.hero-row{flex-direction:column;align-items:flex-start}header{align-items:flex-start;flex-direction:column}#output{min-height:410px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="brand"><div class="logo">DN</div><div><h1>DUNG NGUYEN Studio-Seedance 2.5</h1><div class="sub">Face Identity Lock • Production Dashboard • Seedance 2.5</div></div></div>
+<div class="actions"><button class="btn" id="saveCfg">Lưu cấu hình</button><button class="btn" id="reset">Khôi phục mặc định</button></div>
+</header>
+
+<section class="hero">
+<div class="hero-row">
+<div><h2>🔐 FACE IDENTITY LOCK + ⚡ FULL EPISODE</h2><p>Ảnh khuôn mặt của bạn là nguồn nhận diện chính cho DUNG NGUYEN. Mọi tập chỉ thay đổi câu chuyện, bối cảnh và choreography.</p></div>
+<div class="actions">
+<button class="btn primary" id="create">⚡ TẠO TẬP DUNG NGUYEN</button>
+<button class="btn" id="random">✨ Tập ngẫu nhiên</button>
+<button class="btn" id="next">➡️ Tập tiếp theo</button>
+<button class="btn info" id="batch">🧠 Tạo 5 tập</button>
+</div>
+</div>
+<div class="chips"><span class="chip info" id="seasonChip">Season 01</span><span class="chip" id="episodeChip">Chưa có tập</span><span class="chip" id="usedChip">0 tập đã dùng</span><span class="chip ok">>1,9 tỷ tổ hợp nền</span><span class="chip">V8.1 Caption Fix</span></div>
+<div class="dashboard">
+<div class="stat"><b>FACE LOCK</b><span id="faceStat">Chưa có ảnh</span></div><div class="stat"><b>ANTI-DUPLICATE</b><span id="similar">Chưa phân tích</span></div>
+<div class="stat"><b>SEEDANCE</b><span id="seedStat">Chưa có prompt</span></div><div class="stat"><b>LIBRARY</b><span id="saveStat">0 tập</span></div><div class="stat"><b>VERSION</b><span>V8 Face Lock</span></div>
+</div>
+</section>
+
+<div class="grid">
+<section class="card">
+<h2>🔒 Character Lock</h2>
+<div class="field"><label>Tên nhân vật</label><input id="name" value="DUNG NGUYEN"></div>
+<div class="refbox">
+<div class="field"><label>Ảnh khuôn mặt tham chiếu chính</label><input id="faceFile" type="file" accept="image/*"></div>
+<div class="ref-preview"><img class="ref-thumb" id="refThumb"><div class="ref-placeholder" id="refPlaceholder">FACE<br>REFERENCE</div><div><b id="faceLabel">Chưa tải ảnh</b><div class="sub">Ảnh này được dùng làm “PRIMARY IDENTITY REFERENCE” trong mọi First Frame prompt.</div></div></div>
+<div class="face-status warn" id="faceStatus">Chưa có face reference. Hãy tải ảnh chính của bạn để khóa nhận diện.</div>
+</div>
+<div class="field"><label>Instruction Identity Lock</label><textarea id="identityInstruction">Preserve my identity as faithfully as possible. Do not redesign, beautify, age, de-age, stylize, replace or blend my face with another person.</textarea></div>
+<div class="field"><label>Trang phục</label><input id="wardrobe" value="Modern dark cinematic outfit suitable for the environment."></div>
+<div class="field"><label>Phong cách nhân vật</label><input id="charStyle" value="Calm, serious, confident and protective."></div>
+
+<div class="section">🎬 Thoại thương hiệu</div>
+<div class="two"><div class="field"><label>Intro 0–5s</label><input id="intro" value="Đừng sợ… Dung Nguyen ở đây."></div><div class="field"><label>Outro 25–30s</label><input id="outro" value="An toàn rồi. Đi đi."></div></div>
+<div class="section">📺 Series</div>
+<div class="two"><div class="field"><label>Season</label><input id="season" value="01"></div><div class="field"><label>Tập bắt đầu</label><input id="start" type="number" min="1" value="1"></div></div>
+<div class="two"><div class="field"><label>Trạng thái</label><select id="status"><option>Idea</option><option>First Frame Ready</option><option>Seedance Ready</option><option>Published</option></select></div><div class="field"><label>Tag</label><input id="tag" placeholder="rain / rooftop / rescue..."></div></div>
+<div class="field"><label>Ghi chú</label><textarea id="notes" placeholder="Ghi chú sản xuất..."></textarea></div>
+
+<div class="section">🎛️ Creative Filters</div>
+<div class="filters">
+<div class="field"><label>Bối cảnh</label><select id="location"><option value="any">Ngẫu nhiên</option><option value="urban">Đô thị</option><option value="industrial">Công nghiệp</option><option value="transport">Ga / Bến</option><option value="traditional">Truyền thống</option><option value="nature">Ngoài trời</option></select></div>
+<div class="field"><label>Không khí</label><select id="mood"><option value="any">Ngẫu nhiên</option><option value="rain">Mưa</option><option value="fog">Sương</option><option value="storm">Bão / Gió</option><option value="night">Đêm</option><option value="dawn">Bình minh</option></select></div>
+<div class="field"><label>Phong cách</label><select id="style"><option value="any">Ngẫu nhiên</option><option value="heroic">Heroic</option><option value="dark">Dark cinematic</option><option value="emotional">Emotional</option><option value="fast">Fast action</option></select></div>
+<div class="field"><label>Cường độ</label><select id="intensity"><option value="any">Ngẫu nhiên</option><option value="medium">Vừa</option><option value="high">Cao</option><option value="cinematic">Đỉnh điện ảnh</option></select></div>
+</div>
+<div class="check"><input type="checkbox" id="audio" checked><div><b>Audio</b><div class="sub">Nhạc + âm thanh môi trường.</div></div></div>
+<div class="check" style="margin-top:7px"><input type="checkbox" id="safe" checked><div><b>Non-graphic</b><div class="sub">Bảo vệ, né tránh, redirection và stunt choreography có kiểm soát.</div></div></div>
+<div class="hint"><b>V8:</b> Face reference là nguồn nhận diện chính. Không có prompt nào bảo đảm tuyệt đối 100% qua mọi mô hình, nhưng V8 khóa identity ở mức prompt + reference nhất quán nhất có thể.</div>
+</section>
+
+<section class="card output">
+<div class="tabs"><button class="tab active" data-tab="first">1. FIRST FRAME</button><button class="tab" data-tab="concept">2. Ý TƯỞNG</button><button class="tab" data-tab="video">3. SEEDANCE 2.5</button><button class="tab" data-tab="caption">4. FACEBOOK CAPTION</button></div>
+<div class="bar"><div><b id="title">First Frame</b><div class="sub" id="hint">Tạo episode để prompt xuất hiện.</div></div><div class="counter" id="counter">0 / 4.000</div></div>
+<textarea id="output" spellcheck="false"></textarea>
+<div class="asset-actions actions"><button class="btn" id="copy">Copy</button><button class="btn" id="download">Tải .txt</button><button class="btn ok" id="saveEpisode">💾 Lưu tập</button><button class="btn" id="optimize">🪶 Tối ưu Seedance</button></div>
+</section>
+</div>
+
+<section class="card library">
+<div class="library-head"><div><h2 style="margin:0">📚 Episode Manager</h2><div class="sub">Tìm, nạp, lưu, xóa và quản lý trạng thái.</div></div>
+<div class="actions"><input id="search" placeholder="Tìm tập / chủ đề..." style="width:240px"><button class="btn" id="export">📦 Export Library</button><button class="btn danger" id="clearSaved">Xóa thư viện</button><button class="btn danger" id="clearUsed">Xóa tập đã dùng</button></div></div>
+<div class="saved-grid" id="library"></div>
+</section>
+
+<section class="card library">
+<div class="library-head"><div><h2 style="margin:0">🧠 Batch Generator</h2><div class="sub">Tạo nhiều concept để chọn nhanh.</div></div><button class="btn info" id="batch10">Tạo 10 tập</button></div>
+<div class="batch-grid" id="batchGrid"><div class="sub">Chưa có batch.</div></div>
+</section>
+
+<section class="card library">
+<div class="library-head"><div><h2 style="margin:0">📦 Production Package</h2><div class="sub">Toàn bộ asset của episode hiện tại. Caption Facebook được tạo trực tiếp trong app.</div></div><div class="actions"><button class="btn ok" id="package">📦 Tải Package</button><button class="btn" id="copyAll">📋 Copy toàn bộ</button></div></div>
+<div class="package-grid"><div class="pkg"><b>01 Theme</b><small id="pTheme">—</small></div><div class="pkg"><b>02 Background</b><small id="pBg">—</small></div><div class="pkg"><b>03 Choreography</b><small id="pChoreo">—</small></div><div class="pkg"><b>04 First Frame</b><small id="pFirst">—</small></div><div class="pkg"><b>05 Seedance</b><small id="pVideo">—</small></div><div class="pkg"><b>06 Facebook Caption</b><small id="pCaption">—</small></div></div>
+</section>
+
+<div class="footer">DUNG NGUYEN Studio V8.1 • Face Identity Lock • real local Facebook caption • localStorage</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id),state={tab:"first"},prompts={first:"",concept:"",video:"",caption:""},batch=[];let current=null;
+const defaults={name:"DUNG NGUYEN",reference:"Use my uploaded face reference as the PRIMARY and EXACT identity reference for DUNG NGUYEN.",wardrobe:"Modern dark cinematic outfit suitable for the environment.",charStyle:"Calm, serious, confident and protective.",intro:"Đừng sợ… Dung Nguyen ở đây.",outro:"An toàn rồi. Đi đi.",season:"01",start:"1",identityInstruction:"Preserve my identity as faithfully as possible. Do not redesign, beautify, age, de-age, stylize, replace or blend my face with another person."};
+const D={
+L:[
+["Con Hẻm Neon","urban","A narrow Vietnamese neon-lit alley at night","wet reflective pavement, parked motorcycles, small storefronts, puddles, neon signs and mist"],
+["Ga Tàu Điện Ngầm","transport","A nearly empty underground subway station late at night","wet platform, concrete pillars, benches, illuminated signs and distant train lights"],
+["Sân Thượng Cao Tầng","urban","A high-rise rooftop at night","wet concrete, metal railings, ventilation units, glowing skyscrapers and drifting fog"],
+["Bãi Đỗ Xe Ngầm","urban","A large underground parking garage at night","concrete pillars, parked cars, painted lines, puddles and emergency lights"],
+["Nhà Kho Bỏ Hoang","industrial","A huge abandoned industrial warehouse at night","steel beams, wooden crates, hanging cables, broken windows and dusty floor"],
+["Bến Cảng","transport","An isolated harbor dock at midnight","shipping containers, ropes, cranes, dark water and distant cargo ships"],
+["Chợ Đêm","urban","A crowded Vietnamese night market in light rain","food stalls, umbrellas, fabric awnings, wet tiles, hanging lights and steam"],
+["Hành Lang Khách Sạn","urban","A luxury hotel corridor late at night","polished marble, warm wall sconces, mirrors, dark wood doors and long reflections"],
+["Rạp Chiếu Phim Bỏ Hoang","urban","An abandoned cinema during a blackout","old seats, torn curtains, projection equipment, moonlight and floating dust"],
+["Cây Cầu Thành Phố","urban","A modern city bridge after midnight","wet asphalt, street lamps, metal railings, distant skyline and river fog"],
+["Bến Xe Vắng","transport","A nearly empty bus terminal before dawn","rain shelters, parked buses, fluorescent lights, reflective pavement and mist"],
+["Khu Phố Cổ","traditional","A narrow old-town street after sunset","aged facades, hanging lanterns, stone pavement, balconies and light mist"],
+["Nhà Ga Cũ","transport","An old railway station during a storm","long platform, steel columns, vintage lamps, tracks, benches and drifting rain"],
+["Cầu Thang Chung Cư","urban","A dim apartment stairwell late at night","concrete steps, metal handrails, emergency lights, shadowed landings and narrow walls"],
+["Công Trường Đêm","industrial","A quiet construction site after midnight","steel frames, scaffolding, concrete barriers, work lights and drifting dust"],
+["Bến Phà","transport","A riverside ferry terminal at dusk","wet docks, mooring ropes, ticket booths, boats, lamps and river mist"],
+["Phòng Tập Võ","traditional","A traditional martial-arts training hall before dawn","wooden floor, hanging banners, training pads, paper windows and warm lamps"],
+["Nhà Máy Cũ","industrial","An abandoned factory at twilight","metal walkways, old machinery, pipes, broken windows and shafts of light"],
+["Công Viên Vắng","nature","A large urban park just before sunrise","wet paths, benches, trees, street lamps, light fog and distant buildings"],
+["Hẻm Chợ Cũ","traditional","A cramped market passage during a humid evening","tarps, delivery carts, stacked boxes, dim bulbs and wet stone paving"]
+],
+W:[["after heavy rain","rain"],["during light rain","rain"],["under thick midnight fog","fog"],["during a strong coastal wind","storm"],["just before sunrise","dawn"],["during a humid summer evening","night"],["under flickering lights during a blackout","night"],["during a cold winter drizzle","rain"],["with distant thunder and occasional lightning","storm"],["under a clear moonlit sky","night"]],
+P:["a frightened woman","a lost child","an exhausted commuter","an elderly man","a street vendor","a stranded traveler","a young photographer","a delivery rider","a nervous hotel guest","a fisherman","a mechanic","a security guard","a musician carrying an instrument","a young tourist","a small business owner","a train employee"],
+M:["helps","protects","escorts","guides","shields","rescues","supports","leads"],
+O:["uses quick defensive footwork, clean blocks and evasive turns","takes a balanced protective position, redirects movement and changes direction rapidly","uses compact defensive movement, agile pivots and precise timing","moves smoothly into the space, maintaining distance with footwork and controlled redirection","protects the person with measured blocks, quick lateral steps and realistic balance","uses flowing defensive transitions and fast changes of direction while keeping the person behind him"],
+E:["moving around pillars, benches and parked vehicles","using walls, railings and narrow passages to change direction","navigating around crates, ropes and structural obstacles","moving between market stalls, umbrellas and nearby objects","using the open platform and surrounding structures for changing camera angles","working through limited space while keeping the protected person behind him","using changes in floor level and surrounding structures to create visual depth","weaving naturally between environmental obstacles without losing balance"],
+MID:["rapid defensive combinations with smooth directional changes","flowing blocks and evasive turns connected by fast footwork","controlled redirection followed by quick pivots and repositioning","agile movement with alternating close and medium-distance positioning","precise defensive transitions with changing angles and realistic recovery","fast protective movement that continuously shifts the center of balance"],
+PEAK:["a fast sequence of pivots and directional changes with a sweeping tracking camera","an agile turning sequence with a dramatic low-angle camera move","a rapid continuous flow of defensive movement with a smooth orbiting camera","a visually striking chain of quick transitions and precise timing","a high-energy passage combining footwork, balance and dynamic camera tracking","a fluid environmental sequence that briefly widens the camera before closing in","a fast, clean climax built around timing, balance and controlled redirection","a dramatic cinematic peak with layered movement and a strong forward camera push"],
+R:["creates safe distance, checks the protected person and returns to a stable stance","guides the protected person toward a safer area and settles into a calm protective stance","separates the danger from the protected person and calmly regains his footing","confirms the person is safe, steps back and holds a confident protective position","clears the immediate space and ends in a balanced stance beside the person","escorts the person behind a safer boundary and returns to a composed guard","moves the protected person away from the disturbance and calmly resets his position","ensures the route is clear and finishes beside the protected person with controlled breathing"]
+};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function used(){try{return JSON.parse(localStorage.getItem("dnUsedV8")||"[]")}catch(e){return[]}}
+function saved(){try{return JSON.parse(localStorage.getItem("dnSavedV8")||"[]")}catch(e){return[]}}
+function cfg(){return{name:$("name").value.trim()||defaults.name,reference:$("reference")?.value.trim()||defaults.reference,instruction:$("identityInstruction").value.trim()||defaults.identityInstruction,wardrobe:$("wardrobe").value.trim()||defaults.wardrobe,charStyle:$("charStyle").value.trim()||defaults.charStyle,intro:$("intro").value.trim()||defaults.intro,outro:$("outro").value.trim()||defaults.outro,season:$("season").value.trim()||"01",start:parseInt($("start").value||1,10)}}
+function saveCfg(){localStorage.setItem("dnCfgV8",JSON.stringify(cfg()));toast("Đã lưu cấu hình.")}
+function loadCfg(){try{const c=JSON.parse(localStorage.getItem("dnCfgV8")||"null");if(c){$("name").value=c.name||defaults.name;$("reference").value=c.reference||defaults.reference;$("identityInstruction").value=c.instruction||defaults.identityInstruction;$("wardrobe").value=c.wardrobe||defaults.wardrobe;$("charStyle").value=c.charStyle||defaults.charStyle;$("intro").value=c.intro||defaults.intro;$("outro").value=c.outro||defaults.outro;$("season").value=c.season||"01";$("start").value=c.start||1}}catch(e){}}
+function filtered(){const lf=$("location").value,mf=$("mood").value;let L=D.L.filter(x=>lf==="any"||x[1]===lf),W=D.W.filter(x=>mf==="any"||x[1]===mf);return{L:L.length?L:D.L,W:W.length?W:D.W}}
+function makeOne(){const f=filtered(),H=new Set(used()),st=$("style").value,ii=$("intensity").value;for(let i=0;i<1200;i++){const x={loc:pick(f.L),weather:pick(f.W),person:pick(D.P),mot:pick(D.M),open:pick(D.O),env:pick(D.E),mid:pick(D.MID),peak:pick(D.PEAK),res:pick(D.R)};x.sig=[x.loc[0],x.weather[0],x.person,x.mot,x.open,x.env,x.mid,x.peak,x.res,st,ii].join("|");if(H.has(x.sig))continue;const tone=st==="heroic"?"Heroic visual tone.":st==="dark"?"Dark cinematic tone.":st==="emotional"?"Emotional cinematic tone.":st==="fast"?"Fast-action visual tone.":"Cinematic tone.",energy=ii==="medium"?"Moderate action energy.":ii==="high"?"High action energy.":ii==="cinematic"?"Peak cinematic energy.":"Balanced action energy.";x.theme=`Dung Nguyen ${x.mot} ${x.person} at ${x.loc[0]} ${x.weather}.`;x.bg=`${x.loc[2]} ${x.weather}, with ${x.loc[3]}. ${tone} ${energy} Natural atmospheric movement, cinematic depth, realistic reflections and practical lighting.`;x.choreo=`5–10s: Dung Nguyen ${x.open}, keeping ${x.person} safely behind him.\n10–15s: He changes direction naturally, ${x.env}, while using ${x.mid} with realistic balance, timing and momentum.\n15–20s: The choreography reaches its visual peak with ${x.peak}.\n20–25s: He safely finishes the sequence; he ${x.res}.`;x.location=x.loc[0];return x}localStorage.removeItem("dnUsedV8");return makeOne()}
+function faceReferenceBlock(){const c=cfg();return `FACE IDENTITY REFERENCE — CRITICAL:
+Use my uploaded face photo as the PRIMARY and EXACT identity reference for ${c.name}.
+Preserve identity as faithfully as possible: facial structure, eyes, eyebrows, nose, lips, jawline, cheeks, skin tone, natural facial proportions, hairstyle and hairline.
+${c.instruction}
+Do not redesign the face. Do not beautify it. Do not change age. Do not replace it with a generic actor. Do not blend it with another person.
+IDENTITY PRIORITY:
+Identity consistency is more important than artistic variation. The environment, lighting, camera angle and action may change, but ${c.name}'s facial identity must remain consistent.`
+}
+function buildFirst(e){const c=cfg();return `Create a cinematic photorealistic FIRST FRAME for a 30-second martial-arts action video, vertical 9:16.
+
+${faceReferenceBlock()}
+
+THEME:
+${e.theme}
+
+BACKGROUND:
+${e.bg}
+
+POSE:
+Show ${c.name} clearly in full-body or three-quarter-body view in a natural protective stance. ${c.charStyle} Position him so the action can continue naturally.
+
+WARDROBE:
+${c.wardrobe} Realistic fabric and details.
+
+CAMERA:
+Vertical 9:16, professional cinematic framing, 35mm movie look, natural depth of field, realistic proportions.
+
+LIGHTING:
+Cinematic lighting matching the location, believable shadows, reflections and atmosphere.
+
+STYLE:
+High-end photorealistic action movie. Photorealistic skin and realistic human anatomy.
+
+CONTINUITY:
+The uploaded face reference is the authoritative identity source. Keep ${c.name} clearly visible and unobstructed.
+
+NEGATIVE:
+No face change, face morphing, beautification, age change, identity blending, body distortion, duplicate person, extra limbs, cartoon, anime, text, subtitles, logo, watermark, blood or gore.`}
+function buildConcept(e){return`DUNG NGUYEN EPISODE
+
+THEME:
+${e.theme}
+
+BACKGROUND:
+${e.bg}
+
+20-SECOND MARTIAL ARTS CHOREOGRAPHY:
+${e.choreo}
+
+Keep Dung Nguyen consistent. Make the episode visually distinct. Use realistic anatomy, balance, weight transfer, momentum and continuous professional stunt choreography. Focus on protection, defensive movement and controlled redirection. No weapons, blood, gore or graphic injuries.`}
+function buildVideo(e){const c=cfg(),a=$("audio").checked,s=$("safe").checked;return`Create a 30-second cinematic photorealistic martial-arts action video in vertical 9:16.
+
+${faceReferenceBlock()}
+
+MAIN CHARACTER:
+${c.name} is the main character. Keep the same face, hairstyle, skin tone, age, body proportions, clothing and overall appearance throughout. Never change or morph identity.
+
+THEME:
+${e.theme}
+
+BACKGROUND:
+${e.bg}
+
+20-SECOND MARTIAL ARTS CHOREOGRAPHY:
+${e.choreo}
+
+0–5s — INTRO:
+Start from the exact First Frame. ${c.name} notices the situation, steps forward and protects the person. Slow cinematic push-in. ${c.charStyle}
+Dialogue with accurate lip sync:
+“${c.intro}”
+
+5–25s — ACTION:
+Follow the supplied choreography continuously. Use realistic defensive footwork, blocks, evasive turns and controlled redirection. Increase speed toward the peak, keep choreography readable, use the environment naturally, and maintain realistic balance, momentum and body mechanics.
+
+25–30s — OUTRO:
+Move into a cinematic medium close-up. ${c.name} looks toward the protected person with a calm reassuring expression.
+Dialogue with accurate lip sync:
+“${c.outro}”
+Hold the final expression briefly.
+
+CAMERA:
+Professional action-film cinematography, smooth tracking, natural perspective and readable framing.
+
+MOTION:
+Realistic human anatomy and physics. Continuous connected movement. No floating, sliding, teleportation, duplicated limbs or body distortion.
+
+STYLE:
+High-end photorealistic action movie.
+
+${a?"AUDIO: Cinematic action music builds during 5–25s and becomes calmer at the end. Add natural environmental sounds and clear dialogue.":"AUDIO: Clear natural dialogue and realistic environmental sound."}
+
+${s?"CONTENT: Non-graphic cinematic action focused on protection, defensive movement and controlled stunt choreography. No blood, gore, graphic injuries or weapons.":"CONTENT: Keep the scene cinematic and realistic without graphic imagery."}
+
+FINAL:
+Maintain ${c.name}'s identity and facial consistency from the uploaded face reference and First Frame through the final frame.`}
+function buildCaption(e){
+  const hooks=[
+    "🥋 Có những lúc, bước lên không phải để hơn thua… mà để bảo vệ một người đang cần được bảo vệ.",
+    "🛡️ Có những khoảnh khắc, dũng khí không nằm ở việc mạnh đến đâu, mà ở việc bạn sẵn sàng đứng về phía ai.",
+    "❤️‍🔥 Không cần ồn ào. Chỉ cần một bước tiến lên đúng lúc để che chở người phía sau.",
+    "⚡ Khi nguy hiểm xuất hiện, Dung Nguyen chọn tiến lên — không phải vì hiếu thắng, mà vì muốn bảo vệ người cần mình."
+  ];
+  const endings=[
+    "Một khoảnh khắc hành động, một câu chuyện về sự bảo vệ. 🎬🥋",
+    "Đây là một tập mới của DUNG NGUYEN. 🔥🎥",
+    "Bạn sẽ làm gì nếu người phía sau đang cần bạn bảo vệ? 👊",
+    "Có những cuộc đối đầu không cần chiến thắng, chỉ cần người phía sau được an toàn. ❤️"
+  ];
+  const tagSets=[
+    "#DungNguyen #VoThuat #HanhDong #BaoVe #Cinematic #AIvideo #Seedance #FacebookReels #ReelsVietnam #Viral",
+    "#DungNguyen #MartialArts #Action #Cinematic #AIAction #Seedance #Reels #ViralVideo #VoThuat #HanhDong",
+    "#DungNguyen #CinematicAction #VoThuat #CuuNguoi #BaoVe #AIvideo #Seedance #Reels #Xuhuong #Viral"
+  ];
+  const loc=e.location||"một địa điểm đầy kịch tính";
+  return `${pick(hooks)}
+
+🎬 ${e.theme.replace(/^Dung Nguyen\s+/,"Dung Nguyen ")}
+📍 Bối cảnh: ${loc}
+
+${pick(endings)}
+
+${pick(tagSets)}`;
+}
+function createPrompts(e){return{first:buildFirst(e),concept:buildConcept(e),video:buildVideo(e),caption:buildCaption(e)}}
+function addUsed(e){const h=used();h.push(e.sig);localStorage.setItem("dnUsedV8",JSON.stringify(h.slice(-10000)))}
+function create(go="concept"){const e=makeOne();addUsed(e);const c=cfg(),n=Math.max(c.start,used().length+c.start);current={...e,id:"E"+Date.now(),title:`S${c.season}-E${String(n).padStart(3,"0")} — ${e.location}`,season:c.season,status:$("status").value,tag:$("tag").value.trim(),notes:$("notes").value.trim()};Object.assign(prompts,createPrompts(e));updateUI();setTab(go);toast("⚡ Đã tạo episode với Face Identity Lock.")}
+function similarity(){if(!current)return 0;const cur=current.sig.split("|");let best=0;for(const s of used().slice(-400)){const p=s.split("|");let same=0;for(let i=0;i<Math.min(cur.length,p.length);i++)if(cur[i]===p[i])same++;best=Math.max(best,Math.round(same/cur.length*100))}return best}
+function updateUI(){const h=used().length,sv=saved(),sim=similarity();$("seasonChip").textContent=`Season ${cfg().season}`;$("episodeChip").textContent=current?current.title:"Chưa có tập";$("usedChip").textContent=`${h} tập đã dùng`;$("saveStat").textContent=`${sv.length} tập`;$("similar").textContent=current?(sim<35?"Rất khác":sim<60?"Khá khác":sim<80?"Tương đối giống":"Gần giống"):"Chưa phân tích";$("seedStat").textContent=current?`${prompts.video.length.toLocaleString("vi-VN")} ký tự`:"Chưa có prompt";updateFaceUI();renderLibrary();renderPackage();updateCounter()}
+function setTab(t){state.tab=t;document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===t));const T={first:"Prompt tạo First Frame",concept:"Ý tưởng tập",video:"Prompt Seedance 2.5",caption:"Facebook Caption + Hashtags"};$("title").textContent=T[t];$("hint").textContent=t==="video"?"Seedance prompt đã tự ghép. Kiểm tra 4.000 ký tự.":"Asset đã được chuẩn bị tự động.";if(current)$("output").value=prompts[t];else $("output").value="Hãy bấm “⚡ TẠO TẬP DUNG NGUYEN” để bắt đầu.";updateCounter()}
+function updateCounter(){const n=$("output").value.length;$("counter").textContent=`${n.toLocaleString("vi-VN")} / 4.000`;$("counter").className="counter "+(n<=4000?"ok":"bad")}
+function optimize(){if(!current||state.tab!=="video"){toast("Chọn tab Seedance của episode hiện tại.");return}let p=prompts.video;if(p.length>4000){p=p.replace(/CAMERA:\n[\s\S]*?\n\nMOTION:/i,"MOTION:").replace(/STYLE:\n[\s\S]*?\n\nAUDIO:/i,"AUDIO:").replace(/AUDIO:[\s\S]*?\n\nCONTENT:/i,"CONTENT:").replace(/\n{3,}/g,"\n\n").trim()}prompts.video=p;$("output").value=p;updateUI();toast(p.length<=4000?"🪶 Đã tối ưu Seedance.":"⚠️ Prompt vẫn vượt 4.000; hãy rút gọn phần Theme/Background/Choreography.")}
+function saveEpisode(){if(!current){toast("Chưa có episode.");return}const a=saved();a.unshift({...current,prompts:{...prompts},version:(current.version||0)+1,savedAt:new Date().toLocaleString("vi-VN")});localStorage.setItem("dnSavedV8",JSON.stringify(a.slice(0,400)));renderLibrary();updateUI();toast("💾 Đã lưu episode.")}
+function loadEp(id){const x=saved().find(z=>z.id===id);if(!x)return;current={...x};Object.assign(prompts,x.prompts||{});$("status").value=x.status||"Idea";$("tag").value=x.tag||"";$("notes").value=x.notes||"";updateUI();setTab(state.tab);toast("Đã nạp episode.")}
+function delEp(id){localStorage.setItem("dnSavedV8",JSON.stringify(saved().filter(x=>x.id!==id)));renderLibrary();updateUI();toast("Đã xóa episode.")}
+function clearSaved(){if(confirm("Xóa toàn bộ thư viện?")){localStorage.removeItem("dnSavedV8");renderLibrary();updateUI();toast("Đã xóa thư viện.")}}
+function clearUsed(){localStorage.removeItem("dnUsedV8");updateUI();toast("Đã xóa lịch sử tập đã dùng.")}
+function renderLibrary(){const q=($("search").value||"").toLowerCase(),a=saved().filter(x=>(x.title+x.theme+x.tag).toLowerCase().includes(q));$("library").innerHTML=a.slice(0,80).map(x=>`<div class="saved ${current&&current.id===x.id?"current":""}"><h3>${esc(x.title)} <span class="badge">${esc(x.status||"Idea")}</span></h3><p>${esc(x.theme)}</p><div class="sub">${esc(x.tag||"")} • v${x.version||1} • ${esc(x.savedAt||"")}</div><div class="saved-actions"><button class="btn" onclick="loadEp(${x.id})">Nạp</button><button class="btn danger" onclick="delEp(${x.id})">Xóa</button></div></div>`).join("")||'<div class="sub">Chưa có tập lưu.</div>'}
+function batchMake(n){batch.length=0;const local=new Set(used());for(let i=0;i<n;i++){let e=makeOne(),g=0;while(local.has(e.sig)||batch.some(x=>x.sig===e.sig)){e=makeOne();if(++g>50)break}batch.push(e);local.add(e.sig)}renderBatch();toast(`🧠 Đã tạo ${n} concept khác nhau.`)}
+function renderBatch(){$("batchGrid").innerHTML=batch.map((e,i)=>`<div class="batch-item"><h3>${i+1}. ${esc(e.location)}</h3><p>${esc(e.theme)}</p><div class="sub">${esc(e.choreo.split("\\n")[0])}</div><div class="saved-actions"><button class="btn" onclick="useBatch(${i})">Dùng tập này</button></div></div>`).join("")||'<div class="sub">Chưa có batch.</div>'}
+function useBatch(i){const e=batch[i];if(!e)return;addUsed(e);const c=cfg(),n=Math.max(c.start,used().length+c.start);current={...e,id:"E"+Date.now(),title:`S${c.season}-E${String(n).padStart(3,"0")} — ${e.location}`,season:c.season,status:$("status").value,tag:$("tag").value.trim(),notes:$("notes").value.trim()};Object.assign(prompts,createPrompts(e));updateUI();setTab("concept");toast("Đã chọn concept.")}
+function renderPackage(){if(!current){["pTheme","pBg","pChoreo","pFirst","pVideo","pCaption"].forEach(id=>$(id).textContent="—");return}$("pTheme").textContent=current.theme;$("pBg").textContent=current.bg;$("pChoreo").textContent=current.choreo;$("pFirst").textContent=`${prompts.first.length.toLocaleString("vi-VN")} ký tự`;$("pVideo").textContent=`${prompts.video.length.toLocaleString("vi-VN")} ký tự`;$("pCaption").textContent=`${prompts.caption.length.toLocaleString("vi-VN")} ký tự`}
+function dl(name,text,type="text/plain;charset=utf-8"){const b=new Blob([text],{type}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;a.click();URL.revokeObjectURL(a.href)}
+function packageFile(){if(!current){toast("Chưa có episode.");return}dl(`${current.title.replace(/[^a-zA-Z0-9À-ỹ -]/g,"").replace(/\s+/g,"-")}-PACKAGE.txt`,`DUNG NGUYEN STUDIO V8\n${current.title}\nStatus: ${current.status}\nTag: ${current.tag||""}\nNotes: ${current.notes||""}\n\nTHEME\n${current.theme}\n\nBACKGROUND\n${current.bg}\n\n20-SECOND CHOREOGRAPHY\n${current.choreo}\n\nFIRST FRAME PROMPT\n${prompts.first}\n\nSEEDANCE 2.5 PROMPT\n${prompts.video}\n\nFACEBOOK\n${prompts.caption}`);toast("📦 Đã tải package.")}
+function copyAll(){if(!current){toast("Chưa có episode.");return}navigator.clipboard.writeText(`THEME\n${current.theme}\n\nBACKGROUND\n${current.bg}\n\nCHOREOGRAPHY\n${current.choreo}\n\nFIRST FRAME\n${prompts.first}\n\nSEEDANCE\n${prompts.video}\n\nFACEBOOK\n${prompts.caption}`).then(()=>toast("📋 Đã copy toàn bộ."))}
+function updateFaceUI(){const has=!!localStorage.getItem("dnFaceReferenceV8");$("faceStat").textContent=has?"✅ Face Locked":"⚠️ Chưa có ảnh";$("faceStatus").className="face-status "+(has?"ok":"warn");$("faceStatus").textContent=has?"✅ Face reference đã được lưu cục bộ và sẽ được mô tả trong mọi prompt identity.":"Chưa có face reference. Tải ảnh chính của bạn để khóa nhận diện."}
+$("faceFile").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{localStorage.setItem("dnFaceReferenceV8",r.result);$("refThumb").src=r.result;$("refThumb").style.display="block";$("refPlaceholder").style.display="none";$("faceLabel").textContent=f.name;updateFaceUI();toast("🔒 Đã khóa Face Reference.")};r.readAsDataURL(f)});
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+$("create").onclick=()=>create("concept");$("random").onclick=()=>create("concept");$("next").onclick=()=>create("concept");$("batch").onclick=()=>batchMake(5);$("batch10").onclick=()=>batchMake(10);
+$("saveCfg").onclick=saveCfg;$("reset").onclick=()=>{localStorage.removeItem("dnCfgV8");location.reload()};
+$("copy").onclick=()=>navigator.clipboard.writeText($("output").value).then(()=>toast("Đã copy."));$("download").onclick=()=>dl(`dung-nguyen-${state.tab}.txt`,$("output").value);
+$("saveEpisode").onclick=saveEpisode;$("optimize").onclick=optimize;$("clearSaved").onclick=clearSaved;$("clearUsed").onclick=clearUsed;$("search").oninput=renderLibrary;
+$("export").onclick=()=>dl("dung-nguyen-v8-library.json",JSON.stringify({app:"DUNG NGUYEN Studio V8",exportedAt:new Date().toISOString(),saved:saved(),used:used()},null,2),"application/json");
+$("package").onclick=packageFile;$("copyAll").onclick=copyAll;
+["status","tag","notes"].forEach(id=>$(id).addEventListener("input",()=>{if(current){current.status=$("status").value;current.tag=$("tag").value.trim();current.notes=$("notes").value.trim()}}));
+["name","reference","identityInstruction","wardrobe","charStyle","intro","outro","season","start","audio","safe"].forEach(id=>$(id).addEventListener("change",()=>{if(current){prompts.first=buildFirst(current);prompts.concept=buildConcept(current);prompts.video=buildVideo(current);prompts.caption=buildCaption(current);setTab(state.tab)}}));
+window.loadEp=loadEp;window.delEp=delEp;window.useBatch=useBatch;
+loadCfg();
+const faceData=localStorage.getItem("dnFaceReferenceV8");if(faceData){$("refThumb").src=faceData;$("refThumb").style.display="block";$("refPlaceholder").style.display="none";$("faceLabel").textContent="Face reference đã lưu";}
+updateFaceUI();renderLibrary();updateUI();setTab("first");
+</script>
+</body>
+</html>
